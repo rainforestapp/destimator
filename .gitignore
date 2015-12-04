@@ -1,0 +1,11 @@
+.DS_Store
+.tox/
+venv/
+classifiers/
+
+.env
+*.pyc
+*.pkl
+.cache
+.coverage
+debug.log
