@@ -187,7 +187,7 @@ class DescribedEstimator(object):
         if features_mismatch or labels_mismatch:
             raise ValueError('Training and test data must have the same dimensionality.')
 
-        if self._data['features_train'].shape[1] != len(self.metadata['feature_names']):
+        if self.metadata['feature_names'] is not None and self._data['features_train'].shape[1] != len(self.metadata['feature_names']):
             raise ValueError('Number of feature_names must match the number of features.')
 
         if 'feature_names' not in self.metadata:
