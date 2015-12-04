@@ -142,6 +142,26 @@ class DescribedEstimator(object):
         return cls.from_file(f)
 
     @property
+    def feature_names(self):
+        return self.metadata['feature_names']
+
+    @property
+    def features_train(self):
+        return self._data['features_train']
+
+    @property
+    def features_test(self):
+        return self._data['features_test']
+
+    @property
+    def labels_train(self):
+        return self._data['labels_train']
+
+    @property
+    def labels_test(self):
+        return self._data['labels_test']
+
+    @property
     def n_training_samples_(self):
         return self._data['features_train'].shape[0]
 
@@ -164,10 +184,10 @@ class DescribedEstimator(object):
         archive_name = os.path.join(path, filename)
         # save files to disk (unfortunately joblib requires that)
         joblib.dump(self._clf, os.path.join(path, 'model.bin'), compress=9)
-        joblib.dump(self._data['features_train'], os.path.join(path, 'features_train.bin'), compress=9)
-        joblib.dump(self._data['labels_train'], os.path.join(path, 'labels_train.bin'), compress=9)
-        joblib.dump(self._data['features_test'], os.path.join(path, 'features_test.bin'), compress=9)
-        joblib.dump(self._data['labels_test'], os.path.join(path, 'labels_test.bin'), compress=9)
+        joblib.dump(self.features_train, os.path.join(path, 'features_train.bin'), compress=9)
+        joblib.dump(self.labels_train, os.path.join(path, 'labels_train.bin'), compress=9)
+        joblib.dump(self.features_test, os.path.join(path, 'features_test.bin'), compress=9)
+        joblib.dump(self.labels_test, os.path.join(path, 'labels_test.bin'), compress=9)
         with open(os.path.join(path, 'metadata.json'), 'wt') as f:
             f.write(json.dumps(self.metadata))
         # pack all the files into a zip archive
@@ -180,14 +200,14 @@ class DescribedEstimator(object):
         if len(self._data['features_train']) != len(self._data['labels_train']):
             raise ValueError('Number of features and labels must be the same.')
 
-        features_mismatch = self._data['features_train'].shape[1] != self._data['features_test'].shape[1]
-        labels_dims_train = self._data['labels_train'].shape[1] if self._data['labels_train'].ndim > 1 else 1
-        labels_dims_test = self._data['labels_test'].shape[1] if self._data['labels_test'].ndim > 1 else 1
+        features_mismatch = self.features_train.shape[1] != self.features_test.shape[1]
+        labels_dims_train = self.labels_train.shape[1] if self.labels_train.ndim > 1 else 1
+        labels_dims_test = self.labels_test.shape[1] if self.labels_test.ndim > 1 else 1
         labels_mismatch = labels_dims_train != labels_dims_test
         if features_mismatch or labels_mismatch:
             raise ValueError('Training and test data must have the same dimensionality.')
 
-        if self.metadata['feature_names'] is not None and self._data['features_train'].shape[1] != len(self.metadata['feature_names']):
+        if self.feature_names is not None and self.features_train.shape[1] != len(self.feature_names):
             raise ValueError('Number of feature_names must match the number of features.')
 
         if 'feature_names' not in self.metadata:
