@@ -11,7 +11,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='destimator',
-    version='0.0.0.dev1',
+    version='0.0.0.dev2',
 
     description='A metadata-saving proxy for scikit-learn etimators.',
     long_description=long_description,
