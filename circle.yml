@@ -14,3 +14,6 @@ dependencies:
     - pip install tox
   cache_directories:
     - ~/.cache/pip
+  override:
+    - tox:
+        timeout: 1800
