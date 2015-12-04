@@ -6,12 +6,17 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+long_description = (
+    'destimator makes it easy to store trained `scikit-learn` estimators '
+    'together with their metadata (training data, package versions, '
+    'performance numbers etc.). This makes it much safer to store '
+    'already-trained classifiers/regressors and allows for better '
+    'reproducibility.'
+)
 
 setup(
     name='destimator',
-    version='0.0.1',
+    version='0.0.2',
 
     description='A metadata-saving proxy for scikit-learn etimators.',
     long_description=long_description,
@@ -69,6 +74,7 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': [
+            'twine==1.6.4',
         ],
         'test': [
             'pytest',
