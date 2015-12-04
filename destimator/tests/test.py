@@ -122,7 +122,7 @@ class TestDescribedEstimator(object):
 class TestGetCurrentGitHash(object):
     def test_get_current_vcs_hash(self, monkeypatch):
         def fake_check_output(*args, **kwargs):
-            return 'thisisagithash'
+            return b'thisisagithash'
         monkeypatch.setattr(subprocess, 'check_output', fake_check_output)
         assert utils.get_current_vcs_hash() == 'thisisagithash'
 
