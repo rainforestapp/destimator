@@ -1,0 +1,1 @@
+include *.rst *.txt LICENSE.txt pytest.ini tox.ini circle.yml

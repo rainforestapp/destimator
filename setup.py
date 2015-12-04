@@ -74,7 +74,8 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': [
-            'twine==1.6.4',
+            'check-manifest'
+            'twine',
         ],
         'test': [
             'pytest',
