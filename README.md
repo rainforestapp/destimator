@@ -11,9 +11,9 @@ Specifically, the `DescribedEstimator` class proxies most calls to the original 
 - distribution info (`distribution_info`; python distribution and versions of all installed packages)
 - VCS hash (`vcs_hash`, if used inside a git repository, otherwise and empty string).
 
-`DescribedEstimator` can be sued as follows:
+`DescribedEstimator` can be used as follows:
 
-```
+```python
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
@@ -42,12 +42,16 @@ dclf = DescribedEstimator(
     labels_test,
     iris.feature_names
 )
+```
 
-# now you can use the classifier as usual
+Now you can use the classifier as usual:
+```python
 print(dclf.predict(features_test))
 > [2 1 2 2 0 1 0 2 2 1 2 0 2 1 2]
+```
 
-# and you can also access a bunch of other properties, such as the training data you supplied
+and you can also access a bunch of other properties, such as the training data you supplied:
+```python
 print(dclf.feature_names)
 > ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
 
@@ -70,7 +74,9 @@ print(dclf.features_test)
 
 print(dclf.labels_test)
 > [2 1 2 1 0 1 0 2 2 1 2 0 2 1 2]
-
+```
+the performance numbers:
+```python
 print('precision: %s' % (dclf.precision))
 > precision: [1.0, 1.0, 0.875]
 
@@ -82,47 +88,50 @@ print('fscore:    %s' % (dclf.fscore))
 
 print('support:   %s' % (dclf.support))
 > support:   [3, 5, 7]
+```
 
+or information about the Python distribution used for training:
+```python
 from pprint import pprint
 pprint(dclf.distribution_info)
 
-{'packages': ['appnope==0.1.0',
-              'decorator==4.0.4',
-              'destimator==0.0.0.dev3',
-              'gnureadline==6.3.3',
-              'ipykernel==4.2.1',
-              'ipython-genutils==0.1.0',
-              'ipython==4.0.1',
-              'ipywidgets==4.1.1',
-              'jinja2==2.8',
-              'jsonschema==2.5.1',
-              'jupyter-client==4.1.1',
-              'jupyter-console==4.0.3',
-              'jupyter-core==4.0.6',
-              'jupyter==1.0.0',
-              'markupsafe==0.23',
-              'mistune==0.7.1',
-              'nbconvert==4.1.0',
-              'nbformat==4.0.1',
-              'notebook==4.0.6',
-              'numpy==1.10.1',
-              'path.py==8.1.2',
-              'pexpect==4.0.1',
-              'pickleshare==0.5',
-              'pip==7.1.2',
-              'ptyprocess==0.5',
-              'pygments==2.0.2',
-              'pyzmq==15.1.0',
-              'qtconsole==4.1.1',
-              'requests==2.8.1',
-              'scikit-learn==0.17',
-              'scipy==0.16.1',
-              'setuptools==18.2',
-              'simplegeneric==0.8.1',
-              'terminado==0.5',
-              'tornado==4.3',
-              'traitlets==4.0.0',
-              'wheel==0.24.0'],
- 'python': '3.5.0 (default, Sep 14 2015, 02:37:27) \n'
-           '[GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]'}
+> {'packages': ['appnope==0.1.0',
+                'decorator==4.0.4',
+                'destimator==0.0.0.dev3',
+                'gnureadline==6.3.3',
+                'ipykernel==4.2.1',
+                'ipython-genutils==0.1.0',
+                'ipython==4.0.1',
+                'ipywidgets==4.1.1',
+                'jinja2==2.8',
+                'jsonschema==2.5.1',
+                'jupyter-client==4.1.1',
+                'jupyter-console==4.0.3',
+                'jupyter-core==4.0.6',
+                'jupyter==1.0.0',
+                'markupsafe==0.23',
+                'mistune==0.7.1',
+                'nbconvert==4.1.0',
+                'nbformat==4.0.1',
+                'notebook==4.0.6',
+                'numpy==1.10.1',
+                'path.py==8.1.2',
+                'pexpect==4.0.1',
+                'pickleshare==0.5',
+                'pip==7.1.2',
+                'ptyprocess==0.5',
+                'pygments==2.0.2',
+                'pyzmq==15.1.0',
+                'qtconsole==4.1.1',
+                'requests==2.8.1',
+                'scikit-learn==0.17',
+                'scipy==0.16.1',
+                'setuptools==18.2',
+                'simplegeneric==0.8.1',
+                'terminado==0.5',
+                'tornado==4.3',
+                'traitlets==4.0.0',
+                'wheel==0.24.0'],
+   'python': '3.5.0 (default, Sep 14 2015, 02:37:27) \n'
+             '[GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]'}
 ```
