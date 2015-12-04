@@ -72,7 +72,7 @@ setup(
         ],
         'test': [
             'pytest',
-            'pytest-pep8',
+            'flake8',
             'pytest-cov',
             'tox',
         ],
