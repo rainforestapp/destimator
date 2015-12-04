@@ -68,10 +68,10 @@ class DescribedEstimator(object):
                     'python': sys.version,
                     'packages': get_installed_packages(),
                 },
-                'precision': ['%.4f' % (p) for p in precision],
-                'recall': ['%.4f' % (r) for r in recall],
-                'fscore': ['%.4f' % (f) for f in fscore],
-                'support': ['%.4f' % (s) for s in support],
+                'precision': [float(p) for p in precision],  # cast to make it
+                'recall':    [float(r) for r in recall],     # JSONserializable
+                'fscore':    [float(f) for f in fscore],
+                'support':   [int(s) for s in support],
             }
         else:
             self.metadata = kwargs.pop('metadata')

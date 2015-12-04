@@ -77,9 +77,13 @@ class TestDescribedEstimator(object):
         # assert type(d['distribution_info']['python']) == str
         assert type(d['distribution_info']['packages']) == list
         assert type(d['precision']) == list
+        assert type(d['precision'][0]) == float
         assert type(d['recall']) == list
+        assert type(d['recall'][0]) == float
         assert type(d['fscore']) == list
+        assert type(d['fscore'][0]) == float
         assert type(d['support']) == list
+        assert type(d['support'][0]) == int
 
     def test_save_classifier(self, clf_described):
         save_dir = tempfile.mkdtemp()

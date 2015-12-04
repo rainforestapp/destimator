@@ -1,3 +1,8 @@
+0.0.0.dev3 (2015-12-04)
+-----------------------
+- Changed how performance numbers are stored (native types), which makes it more predictable, while still easily JSON-serializeable
+
+
 0.0.0.dev2 (2015-12-04)
 -----------------------
 - Added an easier way to access propertes in DescribedEstimator.
