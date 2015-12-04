@@ -142,26 +142,6 @@ class DescribedEstimator(object):
         return cls.from_file(f)
 
     @property
-    def feature_names(self):
-        return self.metadata['feature_names']
-
-    @property
-    def features_train(self):
-        return self._data['features_train']
-
-    @property
-    def features_test(self):
-        return self._data['features_test']
-
-    @property
-    def labels_train(self):
-        return self._data['labels_train']
-
-    @property
-    def labels_test(self):
-        return self._data['labels_test']
-
-    @property
     def n_training_samples_(self):
         return self._data['features_train'].shape[0]
 
@@ -214,4 +194,9 @@ class DescribedEstimator(object):
             raise ValueError('feature_names mist be provided.')
 
     def __getattr__(self, name):
-        return getattr(self._clf, name)
+        if name in self._data.keys():
+            return self._data[name]
+        elif name in self.metadata.keys():
+            return self.metadata[name]
+        else:
+            return getattr(self._clf, name)
