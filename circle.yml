@@ -1,0 +1,19 @@
+experimental:
+  notify:
+    branches:
+      only:
+        - master
+
+machine:
+  python:
+    version: 2.7.10
+
+dependencies:
+  pre:
+    - sudo apt-get update; sudo apt-get install -y build-essential gfortran libblas-dev liblapack-dev libssl-dev openssl libpq-dev
+    - pip install tox
+  cache_directories:
+    - ~/.cache/pip
+  override:
+    - tox:
+        timeout: 1800
