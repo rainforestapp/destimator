@@ -1,0 +1,15 @@
+experimental:
+  notify:
+    branches:
+      only:
+        - master
+
+machine:
+  python:
+    version: 3.5.0
+
+dependencies:
+  pre:
+    - pip install tox
+  cache_directories:
+    - ~/.cache/pip
