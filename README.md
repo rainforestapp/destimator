@@ -7,9 +7,11 @@ Specifically, the `DescribedEstimator` class proxies most calls to the original 
 - training and test (validation) data (`features_train`, `labels_train`, `features_test`, `labels_test`)
 - creation date (`created_at`)
 - feature names (`feature_names`)
-- performance numbers on the test set (`precision`, `recall`, `fscore`, `support` via [sklearn](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html)
+- performance numbers on the test set (`precision`, `recall`, `fscore`, `support` via [sklearn](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html))
 - distribution info (`distribution_info`; python distribution and versions of all installed packages)
 - VCS hash (`vcs_hash`, if used inside a git repository, otherwise and empty string).
+
+An instantiated `DescribedEstimator` can be easily serialized using the `.save()` method and deserialized using either `.from_file()` or `.from_url()`. Did you ever want to store your models in S3? Now it's easy!
 
 `DescribedEstimator` can be used as follows:
 
