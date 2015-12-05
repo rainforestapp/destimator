@@ -16,7 +16,7 @@ long_description = (
 
 setup(
     name='destimator',
-    version='0.0.3.dev0',
+    version='0.0.3',
 
     description='A metadata-saving proxy for scikit-learn etimators.',
     long_description=long_description,
@@ -64,7 +64,7 @@ setup(
     install_requires=[
         'requests>=2.8.1',
         'numpy>=1.10.1',
-        'scipy>=0.16.1',
+        'scipy>=0.16.0',
         'scikit-learn>=0.17',
     ],
 
