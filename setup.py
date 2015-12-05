@@ -16,7 +16,7 @@ long_description = (
 
 setup(
     name='destimator',
-    version='0.0.3',
+    version='0.0.4.dev0',
 
     description='A metadata-saving proxy for scikit-learn etimators.',
     long_description=long_description,
