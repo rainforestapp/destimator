@@ -2,6 +2,8 @@
 destimator
 ==========
 
+.. highlight:: python
+
 destimator makes it easy to store trained ``scikit-learn`` estimators together with their metadata (training data, package versions, performance numbers etc.). This makes it much safer to store already-trained classifiers/regressors and allows for better reproducibility (see [this talk](https://www.youtube.com/watch?v=7KnfGDajDQw) by [Alex Gaynor](https://alexgaynor.net/) for some rationale).
 
 Specifically, the ``DescribedEstimator`` class proxies most calls to the original ``Estimator`` it is wrapping, but also contains the following information:
