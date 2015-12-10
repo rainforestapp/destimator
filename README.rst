@@ -54,7 +54,7 @@ Now you can use the classifier as usual:
   print(dclf.predict(features_test))
   > [2 1 2 2 0 1 0 2 2 1 2 0 2 1 2]
 
-and you can also access a bunch of other properties, such as the training data you supplied::
+and you can also access a bunch of other properties, such as the training data you supplied:
 
 .. code-block:: python
 
