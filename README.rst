@@ -50,12 +50,14 @@ An instantiated ``DescribedEstimator`` can be easily serialized using the ``.sav
 Now you can use the classifier as usual:
 
 .. code-block:: python
+
   print(dclf.predict(features_test))
   > [2 1 2 2 0 1 0 2 2 1 2 0 2 1 2]
 
 and you can also access a bunch of other properties, such as the training data you supplied::
 
 .. code-block:: python
+
   print(dclf.feature_names)
   > ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
 
@@ -82,6 +84,7 @@ and you can also access a bunch of other properties, such as the training data y
 the performance numbers:
 
 .. code-block:: python
+
   print('precision: %s' % (dclf.precision))
   > precision: [1.0, 1.0, 0.875]
 
@@ -97,6 +100,7 @@ the performance numbers:
 or information about the Python distribution used for training:
 
 .. code-block:: python
+
   from pprint import pprint
   pprint(dclf.distribution_info)
 
