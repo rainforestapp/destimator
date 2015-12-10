@@ -16,7 +16,9 @@ Specifically, the ``DescribedEstimator`` class proxies most calls to the origina
 
 An instantiated ``DescribedEstimator`` can be easily serialized using the ``.save()`` method and deserialized using either ``.from_file()`` or ``.from_url()``. Did you ever want to store your models in S3? Now it's easy!
 
-``DescribedEstimator`` can be used as follows::
+``DescribedEstimator`` can be used as follows:
+
+.. code-block:: python
 
   import numpy as np
   from sklearn.datasets import load_iris
