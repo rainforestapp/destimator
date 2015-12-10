@@ -33,7 +33,7 @@ INSTALL_REQUIRES = [
 
 EXTRAS_REQUIRE = {
     'dev': [
-        'check-manifest'
+        'check-manifest',
         'twine',
     ],
     'test': [
