@@ -36,6 +36,7 @@ EXTRAS_REQUIRE = {
         'check-manifest',
         'twine',
         'sphinx',
+        'sphinx_rtd_theme',
     ],
     'test': [
         'pytest',

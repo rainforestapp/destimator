@@ -2,13 +2,14 @@
 destimator
 ==========
 
-destimator makes it easy to store trained ``scikit-learn`` estimators together with their metadata (training data, package versions, performance numbers etc.). This makes it much safer to store already-trained classifiers/regressors and allows for better reproducibility (see [this talk](https://www.youtube.com/watch?v=7KnfGDajDQw) by [Alex Gaynor](https://alexgaynor.net/) for some rationale).
+destimator makes it easy to store trained ``scikit-learn`` estimators together with their metadata (training data, package versions, performance numbers etc.). This makes it much safer to store already-trained classifiers/regressors and allows for better reproducibility (see `this talk <https://www.youtube.com/watch?v=7KnfGDajDQw>`_ by `Alex Gaynor <https://alexgaynor.net/>`_ for some rationale).
 
 Specifically, the ``DescribedEstimator`` class proxies most calls to the original ``Estimator`` it is wrapping, but also contains the following information:
+
 * training and test (validation) data (``features_train``, ``labels_train``, ``features_test``, ``labels_test``)
 * creation date (``created_at``)
 * feature names (``feature_names``)
-* performance numbers on the test set (``precision``, ``recall``, ``fscore``, ``support`` via [sklearn](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html))
+* performance numbers on the test set (``precision``, ``recall``, ``fscore``, ``support`` via `sklearn <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html>`_)
 * distribution info (``distribution_info``; python distribution and versions of all installed packages)
 * VCS hash (``vcs_hash``, if used inside a git repository, otherwise and empty string).
 
