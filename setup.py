@@ -35,6 +35,7 @@ EXTRAS_REQUIRE = {
     'dev': [
         'check-manifest',
         'twine',
+        'sphinx',
     ],
     'test': [
         'pytest',

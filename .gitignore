@@ -4,6 +4,7 @@ venv*/
 classifiers/
 build/
 dist/
+docs/_build/
 *.egg-info/
 
 .env
