@@ -1,3 +1,13 @@
+0.0.5
+-----
+- slightly better docs
+
+
+0.0.4 (2015-12-5)
+-----------------
+- setup.py improvements
+
+
 0.0.3 (2015-12-4)
 -----------------
 - Downgraded scipy for compatibility with Anaconda.
