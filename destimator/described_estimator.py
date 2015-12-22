@@ -97,7 +97,6 @@ class DescribedEstimator(object):
         )
         return data_equal and metadata_equal and classifier_equal
 
-
     @classmethod
     def from_file(cls, f):
         """

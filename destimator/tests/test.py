@@ -66,6 +66,13 @@ class TestDescribedEstimator(object):
         finally:
             shutil.rmtree(save_dir)
 
+    def test_is_compatible(self, clf, clf_described, features, labels):
+        compatible = DescribedEstimator(clf, features, labels, features, labels, ['one', 'two', 'three'])
+        assert clf_described.is_compatible(compatible)
+
+        incompatible = DescribedEstimator(clf, features, labels, features, labels, ['one', 'two', 'boom'])
+        assert not clf_described.is_compatible(incompatible)
+
     def test_metadata(self, clf, features, labels, feature_names):
         clf_described = DescribedEstimator(clf, features, labels, features, labels, feature_names)
         d = clf_described.metadata

@@ -1,3 +1,9 @@
+0.1.1 (2015-12-22)
+------------------
+- added a test
+- fixed code style to pass tests...
+
+
 0.1.0 (2015-12-22)
 ------------------
 - added `is_compatible` method to check whether two estimators match

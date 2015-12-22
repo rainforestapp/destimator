@@ -151,7 +151,13 @@ Finally, the object can be serialized to a `zip` file containing all the above d
 
     dclf.save('./classifiers', 'dclf')
 
-and deserialized correspondigly
+and deserialized either from a file,
+
+.. code-block:: python
+
+    dclf = DescribedEstimator.from_file('./classifiers/dclf.zip')
+
+or from a URL:
 
 .. code-block:: python
 
