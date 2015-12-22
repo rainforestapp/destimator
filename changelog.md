@@ -1,19 +1,24 @@
-0.0.5
------
+0.1.0 (2015-12-22)
+------------------
+- added `is_compatible` method to check whether two estimators match
+
+
+0.0.5 (2015-12-15)
+------------------
 - slightly better docs
 
 
-0.0.4 (2015-12-5)
+0.0.4 (2015-12-05)
 -----------------
 - setup.py improvements
 
 
-0.0.3 (2015-12-4)
+0.0.3 (2015-12-04)
 -----------------
 - Downgraded scipy for compatibility with Anaconda.
 
 
-0.0.1 (2015-12-4)
+0.0.1 (2015-12-04)
 -----------------
 - Initial PyPI release.
 

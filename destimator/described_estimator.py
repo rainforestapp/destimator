@@ -97,6 +97,7 @@ class DescribedEstimator(object):
         )
         return data_equal and metadata_equal and classifier_equal
 
+
     @classmethod
     def from_file(cls, f):
         """
@@ -140,6 +141,14 @@ class DescribedEstimator(object):
         f = StringIO()
         f.write(requests.get(url, stream=True).content)
         return cls.from_file(f)
+
+    def is_compatible(self, other):
+        """
+        Check whether this estimator is compatible with the other one (in other
+        words, are their `feature_names` the same).
+
+        """
+        return self.feature_names == other.feature_names
 
     @property
     def n_training_samples_(self):
