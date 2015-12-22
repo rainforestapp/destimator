@@ -148,3 +148,15 @@ or information about the Python distribution used for training:
                   'wheel==0.24.0'],
      'python': '3.5.0 (default, Sep 14 2015, 02:37:27) \n'
                '[GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]'}
+
+Finally, the object can be serialized to a `zip` file containing all the above data:
+
+.. code-block:: python
+
+    dclf.save('./classifiers', 'dclf')
+
+and deserialized correspondigly
+
+.. code-block:: python
+
+    dclf = DescribedEstimator.from_file('./classifiers/dclf.zip')
