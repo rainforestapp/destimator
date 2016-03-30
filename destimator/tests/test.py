@@ -21,7 +21,7 @@ def features():
 
 @pytest.fixture
 def labels():
-    labels = np.zeros([10, 1])
+    labels = np.zeros(10)
     labels[5:] = 1.0
     return labels
 
@@ -83,14 +83,19 @@ class TestDescribedEstimator(object):
         assert type(d['distribution_info']) == dict
         # assert type(d['distribution_info']['python']) == str
         assert type(d['distribution_info']['packages']) == list
-        assert type(d['precision']) == list
-        assert type(d['precision'][0]) == float
-        assert type(d['recall']) == list
-        assert type(d['recall'][0]) == float
-        assert type(d['fscore']) == list
-        assert type(d['fscore'][0]) == float
-        assert type(d['support']) == list
-        assert type(d['support'][0]) == int
+        assert type(d['performance_scores']['precision']) == list
+        assert type(d['performance_scores']['precision'][0]) == float
+        assert type(d['performance_scores']['recall']) == list
+        assert type(d['performance_scores']['recall'][0]) == float
+        assert type(d['performance_scores']['fscore']) == list
+        assert type(d['performance_scores']['fscore'][0]) == float
+        assert type(d['performance_scores']['support']) == list
+        assert type(d['performance_scores']['support'][0]) == int
+        assert type(d['performance_scores']['roc_auc']) == float
+
+    def test_get_metric(self, clf_described):
+        assert clf_described.recall == [1.0, 0.0]
+        assert clf_described.roc_auc == 0.5
 
     def test_save_classifier(self, clf_described):
         save_dir = tempfile.mkdtemp()

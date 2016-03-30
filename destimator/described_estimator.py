@@ -17,12 +17,12 @@ from contextlib import closing
 import requests
 import numpy as np
 from sklearn.externals import joblib
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_recall_fscore_support, roc_auc_score
 
 from .utils import get_current_vcs_hash, get_installed_packages
 
 
-METADATA_VERSION = '0'
+METADATA_VERSION = '1'
 
 
 class DescribedEstimator(object):
@@ -59,6 +59,8 @@ class DescribedEstimator(object):
                 labels_test,
                 clf.predict(features_test)
             )
+
+            roc_auc = roc_auc_score(labels_test, clf.predict_proba(features_test)[:, 1])
             self.metadata = {
                 'metadata_version': METADATA_VERSION,
                 'created_at': datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S'),
@@ -68,10 +70,13 @@ class DescribedEstimator(object):
                     'python': sys.version,
                     'packages': get_installed_packages(),
                 },
-                'precision': [float(p) for p in precision],  # cast to make it
-                'recall':    [float(r) for r in recall],     # JSONserializable
-                'fscore':    [float(f) for f in fscore],
-                'support':   [int(s) for s in support],
+                'performance_scores': {
+                    'precision': [float(p) for p in precision],  # cast to make it
+                    'recall':    [float(r) for r in recall],     # JSONserializable
+                    'fscore':    [float(f) for f in fscore],
+                    'support':   [int(s) for s in support],
+                    'roc_auc':   float(roc_auc),
+                }
             }
         else:
             self.metadata = kwargs.pop('metadata')
@@ -86,10 +91,7 @@ class DescribedEstimator(object):
         metadata_equal = all([
             self.metadata['metadata_version'] == other.metadata['metadata_version'],
             self.metadata['feature_names'] == other.metadata['feature_names'],
-            self.metadata['precision'] == other.metadata['precision'],
-            self.metadata['recall'] == other.metadata['recall'],
-            self.metadata['fscore'] == other.metadata['fscore'],
-            self.metadata['support'] == other.metadata['support'],
+            self.metadata['performance_scores'] == other.metadata['performance_scores'],
         ])
         classifier_equal = (
             self._clf.__class__ == other._clf.__class__ and
@@ -206,5 +208,7 @@ class DescribedEstimator(object):
             return self._data[name]
         elif name in self.metadata.keys():
             return self.metadata[name]
+        elif name in self.metadata['performance_scores'].keys():
+            return self.metadata['performance_scores'][name]
         else:
             return getattr(self._clf, name)

@@ -98,6 +98,9 @@ the performance numbers:
   print('support:   %s' % (dclf.support))
   > support:   [3, 5, 7]
 
+  print('roc_auc:   %s' % (dclf.roc_auc))
+  > roc_auc:   0.5
+
 or information about the Python distribution used for training:
 
 .. code-block:: python
@@ -161,4 +164,4 @@ or from a URL:
 
 .. code-block:: python
 
-    dclf = DescribedEstimator.from_file('./classifiers/dclf.zip')
+    dclf = DescribedEstimator.from_url('http://localhost/dclf.zip')
