@@ -9,6 +9,7 @@ import subprocess
 
 import pytest
 import numpy as np
+from numpy.testing import assert_almost_equal
 from sklearn.dummy import DummyClassifier
 
 from destimator import DescribedEstimator, utils
@@ -92,10 +93,13 @@ class TestDescribedEstimator(object):
         assert type(d['performance_scores']['support']) == list
         assert type(d['performance_scores']['support'][0]) == int
         assert type(d['performance_scores']['roc_auc']) == float
+        assert type(d['performance_scores']['log_loss']) == float
 
     def test_get_metric(self, clf_described):
         assert clf_described.recall == [1.0, 0.0]
         assert clf_described.roc_auc == 0.5
+        # log_loss use epsilon 1e-15, so -log(1e-15) / 2 approximately equal 20
+        assert_almost_equal(clf_described.log_loss, 17.269, decimal=3)
 
     def test_save_classifier(self, clf_described):
         save_dir = tempfile.mkdtemp()

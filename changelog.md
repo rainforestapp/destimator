@@ -1,3 +1,8 @@
+0.1.3 (2016-04-30)
+------------------
+- added logloss to metrics
+
+
 0.1.2 (2016-03-29)
 ------------------
 - added ROC AUC to metrics

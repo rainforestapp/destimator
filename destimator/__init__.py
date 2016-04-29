@@ -1,7 +1,7 @@
 from .described_estimator import DescribedEstimator
 
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 __title__ = 'destimator'
 __description__ = 'A metadata-saving proxy for scikit-learn etimators.'
