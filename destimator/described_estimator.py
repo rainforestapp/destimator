@@ -17,12 +17,12 @@ from contextlib import closing
 import requests
 import numpy as np
 from sklearn.externals import joblib
-from sklearn.metrics import precision_recall_fscore_support, roc_auc_score
+from sklearn.metrics import precision_recall_fscore_support, roc_auc_score, log_loss
 
 from .utils import get_current_vcs_hash, get_installed_packages
 
 
-METADATA_VERSION = '1'
+METADATA_VERSION = '2'
 
 
 class DescribedEstimator(object):
@@ -76,6 +76,7 @@ class DescribedEstimator(object):
                     'fscore':    [float(f) for f in fscore],
                     'support':   [int(s) for s in support],
                     'roc_auc':   float(roc_auc),
+                    'log_loss':  float(log_loss(labels_test, clf.predict_proba(features_test)[:, 1])),
                 }
             }
         else:
