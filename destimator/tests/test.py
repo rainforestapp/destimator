@@ -6,6 +6,7 @@ import zipfile
 import datetime
 import tempfile
 import subprocess
+from copy import deepcopy
 
 import pytest
 import numpy as np
@@ -44,6 +45,42 @@ def feature_names():
     return ['one', 'two', 'three']
 
 
+@pytest.fixture
+def metadata_v1():
+    return {
+        'metadata_version': 1,
+        'created_at': '2016-01-01-00-00-00',
+        'feature_names': ['f0', 'f1', 'f2'],
+        'vcs_hash': 'deadbeef',
+        'distribution_info': {
+            'python': 3.5,
+            'packages': [],
+        },
+    }
+
+
+@pytest.fixture
+def metadata_v2():
+    return {
+        'metadata_version': 2,
+        'created_at': '2016-02-01-00-00-00',
+        'feature_names': ['f0', 'f1', 'f2'],
+        'vcs_hash': 'deadbeef',
+        'distribution_info': {
+            'python': 3.5,
+            'packages': [],
+        },
+        'performance_scores': {
+            'precision': [0.7],
+            'recall':    [0.8],
+            'fscore':    [0.9],
+            'support':   [100],
+            'roc_auc':   0.6,
+            'log_loss':  0.5,
+        }
+    }
+
+
 class TestDescribedEstimator(object):
     def test_init(self, clf_described):
         assert clf_described.n_training_samples_ == 10
@@ -57,6 +94,20 @@ class TestDescribedEstimator(object):
         with pytest.raises(ValueError):
             wrong_feature_names = ['']
             DescribedEstimator(clf, features, labels, features, labels, wrong_feature_names)
+
+    def test_eq(self, clf, features, labels, feature_names, metadata_v1, metadata_v2):
+        d1 = DescribedEstimator(clf, features, labels, features, labels, compute_metadata=False, metadata=metadata_v1)
+        d1b = DescribedEstimator(clf, features, labels, features, labels, compute_metadata=False, metadata=metadata_v1)
+        assert d1 == d1b
+
+        d2 = DescribedEstimator(clf, features, labels, features, labels, compute_metadata=False, metadata=metadata_v2)
+        assert d1 != d2
+
+        metadata_v1a = dict(metadata_v1)
+        metadata_v1a['metadata_version'] = 3
+        d1a = DescribedEstimator(clf, features, labels, features, labels, compute_metadata=False, metadata=metadata_v1a)
+        assert d1 != d1a
+
 
     def test_from_file(self, clf_described):
         save_dir = tempfile.mkdtemp()
