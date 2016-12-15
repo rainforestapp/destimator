@@ -1,3 +1,8 @@
+0.1.4 (2016-12-15)
+------------------
+- fix for backwards compatibility between metadata versions
+
+
 0.1.3 (2016-04-30)
 ------------------
 - added logloss to metrics
