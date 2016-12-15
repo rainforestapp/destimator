@@ -82,23 +82,34 @@ class DescribedEstimator(object):
         else:
             self.metadata = kwargs.pop('metadata')
         self.validate_data()
-        super(DescribedEstimator, self).__init__(*args, **kwargs)
 
     def __eq__(self, other):
+        # early exit if data formats are not the same (otherwise we might crash)
+        if self.metadata['metadata_version'] != other.metadata['metadata_version']:
+            return False
         data_equal = all([
             np.array_equal(self._data[k], other._data[k])
             for k in self._data.keys()
         ])
         metadata_equal = all([
-            self.metadata['metadata_version'] == other.metadata['metadata_version'],
-            self.metadata['feature_names'] == other.metadata['feature_names'],
-            self.metadata['performance_scores'] == other.metadata['performance_scores'],
+            self.feature_names == other.feature_names,
+            self.metadata.get('performance_scores', None) == other.metadata.get('performance_scores', None),
         ])
         classifier_equal = (
             self._clf.__class__ == other._clf.__class__ and
             self._clf.get_params() == other._clf.get_params()
         )
         return data_equal and metadata_equal and classifier_equal
+
+    def __getattr__(self, name):
+        if name in self._data.keys():
+            return self._data[name]
+        elif name in self.metadata.keys():
+            return self.metadata[name]
+        elif name in self.metadata.get('performance_scores', {}).keys():
+            return self.metadata['performance_scores'][name]
+        else:
+            return getattr(self._clf, name)
 
     @classmethod
     def from_file(cls, f):
@@ -202,14 +213,4 @@ class DescribedEstimator(object):
             raise ValueError('Number of feature_names must match the number of features.')
 
         if 'feature_names' not in self.metadata:
-            raise ValueError('feature_names mist be provided.')
-
-    def __getattr__(self, name):
-        if name in self._data.keys():
-            return self._data[name]
-        elif name in self.metadata.keys():
-            return self.metadata[name]
-        elif name in self.metadata['performance_scores'].keys():
-            return self.metadata['performance_scores'][name]
-        else:
-            return getattr(self._clf, name)
+            raise ValueError('feature_names must be provided.')
